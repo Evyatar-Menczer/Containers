@@ -37,7 +37,7 @@ func (c *conf) getConf(path string) *conf {
 }
 
 func deleteAllContainers(){
-    //Deletes all runnig containers
+    //Deletes all running and not running containers
 
 
     // cmd := exec.Command("docker","rm", "-f", "$(docker ps -a -q)")
@@ -52,6 +52,10 @@ func deleteAllContainers(){
 
     arr := strings.Split(out.String(), "\n") 
     for _,id := range arr{
+        if id == ""{
+            fmt.Println("All containers deleted successfully")
+            break
+        }
         cmd := exec.Command("docker", "rm", "-f", id)
         err := cmd.Run()
         if err != nil {
@@ -59,6 +63,7 @@ func deleteAllContainers(){
         }
     }
 }
+
 
 func createAgents(c conf){
     //Creates 2 agents processes, passing each "agent" its workload boundarys,
@@ -90,6 +95,8 @@ func createAgents(c conf){
     return
 }
 
+
+
 func parseCommand(text string) ([]string){
     //Parses text to command and args
     //Args:
@@ -97,9 +104,10 @@ func parseCommand(text string) ([]string){
     //Returns:
     //    array of the arguments in command.
 
-    res := strings.Split(text, " ") 
+    res := strings.Split(text, " ")
     return res
 }
+
 
 func main() {
     i := 0
@@ -115,6 +123,8 @@ func main() {
             createAgents(c)
         case "delete":
             deleteAllContainers()
+        case "exit":
+            i = 1
         default:
             fmt.Println("Unknown command, try again")
         }
