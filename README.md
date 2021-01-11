@@ -7,5 +7,5 @@ The container's name, image name and amount of containers to create, coming from
 # Commands
 There are three commands available now:  
 ```create <PATH>``` - creates the agents, from the YAML file.  
-``` delete <NAME>``` - deletes all running ```NAME``` containers.
+``` delete <NAME>``` - deletes all running ```NAME``` containers.  
 ```exit now``` - exits the program.
